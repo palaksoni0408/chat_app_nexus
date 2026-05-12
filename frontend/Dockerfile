@@ -3,7 +3,8 @@ FROM node:20-bullseye-slim
 WORKDIR /srv/app
 
 COPY package*.json ./
-RUN npm ci
+# Use `npm install` to avoid strict lockfile sync failures in dev.
+RUN npm install
 
 COPY . .
 

@@ -10,7 +10,9 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 COPY package*.json ./
-RUN npm ci
+# `npm ci` fails if package-lock.json isn't perfectly in sync with package.json.
+# For local/dev containerization, prefer `npm install` to be more forgiving.
+RUN npm install
 
 COPY . .
 
