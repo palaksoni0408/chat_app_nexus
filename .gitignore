@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.tmp/
+dist/
+build/
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
+
+# Strapi generated admin build artifacts
+backend/.strapi/

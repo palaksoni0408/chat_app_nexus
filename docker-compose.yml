@@ -1,0 +1,42 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      HOST: 0.0.0.0
+      PORT: 1337
+    ports:
+      - "1337:1337"
+    volumes:
+      - ./backend:/srv/app
+      - backend_node_modules:/srv/app/node_modules
+      - backend_tmp:/srv/app/.tmp
+      - backend_public_uploads:/srv/app/public/uploads
+    command: npm run develop
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_BACKEND_URL: http://localhost:1337
+      NEXT_PUBLIC_SOCKET_URL: http://localhost:1337
+      PORT: 3000
+      HOSTNAME: 0.0.0.0
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/srv/app
+      - frontend_node_modules:/srv/app/node_modules
+    command: npm run dev -- --port 3000 --hostname 0.0.0.0
+
+volumes:
+  backend_node_modules:
+  backend_tmp:
+  backend_public_uploads:
+  frontend_node_modules:
