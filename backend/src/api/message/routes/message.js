@@ -1,21 +1,6 @@
 const { createCoreRouter } = require("@strapi/strapi").factories;
 
-module.exports = createCoreRouter("api::message.message", {
-  config: {
-    find: {
-      auth: { scope: ["plugin::users-permissions.user"] },
-    },
-    findOne: {
-      auth: { scope: ["plugin::users-permissions.user"] },
-    },
-    create: {
-      auth: { scope: ["plugin::users-permissions.user"] },
-    },
-    update: {
-      auth: false,
-    },
-    delete: {
-      auth: false,
-    },
-  },
-});
+// Use Strapi's default router + Users & Permissions role settings.
+// Then you control access from the Admin UI:
+// Settings → Users & Permissions → Roles → Authenticated → Message: find/findOne/create.
+module.exports = createCoreRouter("api::message.message");
